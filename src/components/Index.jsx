@@ -1,5 +1,4 @@
 import Header from '../shared/Header'
-import { Link } from 'react-router'
 
 function Index() {
 

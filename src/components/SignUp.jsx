@@ -2,10 +2,12 @@ import { useState } from "react";
 
 function SignUp() {
     const [user, setUser] = useState({
-        email,
-        storeName,
-        isLoggedIn: false,
+        email: "",
+        storeName: "",
+        password: ""
     });
+
+    const [loggedIn, setLoggedIn] = useState(false)
 
     const handleSubmit = (e) => {
         console.log(e.target.email.value);
@@ -14,11 +16,12 @@ function SignUp() {
         setUser({
             email: e.target.email.value,
             storeName: e.target.storeName.value,
-            isLoggedIn: true
+            password: e.target.password.value
             // will there be a way to conditionally set isLoggedIn to true - only if signup is successful
         })
 
         // automatically logs them in if successful submit
+        setLoggedIn(true)
     }
 
     return (

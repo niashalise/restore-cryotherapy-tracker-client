@@ -42,3 +42,5 @@ function CurrentSession() {
     </div>
     );
 }
+
+export default CurrentSession;

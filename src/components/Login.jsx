@@ -1,11 +1,21 @@
+import { useState } from "react";
+
 function Login() {
 
-        const handleOnSubmit = (e) => {
-            // setUser
+    const [user, setUser] = useState({
+        email: "",
+        password: ""
+    })
 
+    const handleOnSubmit = (e) => {
+        // set user
+        setUser({
+            email: e.target.email.value,
+            password: e.target.password.value
+        })
 
-            //Index Page renders
-        }
+        //Index Page renders
+    }
 
     return (
         <>
