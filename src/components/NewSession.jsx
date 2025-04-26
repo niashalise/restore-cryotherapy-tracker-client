@@ -1,7 +1,11 @@
 import { useState } from "react";
 import { month, date, year } from "../shared/variables";
+import styles from '../NewSession.module.css'
+import Modal from "../components/Modal"
+import CreateClient from "./CreateClient";
 
 function NewSession() {
+
   const [session, setSession] = useState({
     machine: "",
     client: "",
@@ -10,6 +14,12 @@ function NewSession() {
     endingTemp: "",
     date: `${month+1} ${date}, ${year}`,
   });
+
+  const [isNewClientOpen, setIsNewClientOpen] = useState(false);
+
+  const handleAddNewToggle = () => {
+    setIsNewClientOpen((prevState) => !prevState)
+  }
 
   let todaysSessions = [];
 
@@ -29,7 +39,10 @@ function NewSession() {
   return (
     <>
       <h1>New Session</h1>
-      <form className="content" onSubmit={handleSubmit}>
+      <h2>
+        {month + 1}/{date}/{year}
+      </h2>
+      <form className={styles.content} onSubmit={handleSubmit}>
         <div>
           <label htmlFor="machine">Machine Type: </label>
           <select id="machine" name="machine" required>
@@ -38,7 +51,7 @@ function NewSession() {
           </select>
         </div>
         <div>
-          <label htmlFor="name">Client Name: </label>
+          <label htmlFor="name" classname="client">Client Name: </label>
           <input
             type="text"
             name="name"
@@ -81,6 +94,10 @@ function NewSession() {
           Submit
         </button>
       </form>
+
+      <div className={styles.content}>
+        <button type="button">Add Client</button>
+      </div>
     </>
   );
 }

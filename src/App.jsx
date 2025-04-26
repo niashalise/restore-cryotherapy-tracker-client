@@ -1,27 +1,29 @@
-import Index from './components/Index'
+import Home from './components/Home'
 import Header from './shared/Header'
 import { useState } from 'react'
-import Modal from './components/Modal'
-import NewSession from './components/NewSession';
+import { Routes, Route } from 'react-router-dom';
+import Login from './components/Login'
+import SignUp from './components/SignUp'
+import TodaysSession from './components/TodaysSession';
+import NewSession from './components/NewSession'
+import "./App.css"
+
+
 
 function App() {
-  const [open, setOpen] = useState(false);
-
-  const handleClose = () => {
-    setOpen(false);
-  }
-
-  const handleOpen = () => {
-    setOpen(true);
-  }
 
   return (
-    <>
+    <div>
       <Header />
-      <Index />
-      <NewSession />
-    </>
-  )
+      <Routes>
+        <Route path="/" element={<Home />} />
+        <Route path="/login" element={<Login />} />
+        <Route path="/signup" element={<SignUp />} />
+        <Route path="/todays-session" element={<TodaysSession />} />
+        <Route path="/new-session" element={<NewSession />} />
+      </Routes>
+    </div>
+  );
 }
 
 export default App
