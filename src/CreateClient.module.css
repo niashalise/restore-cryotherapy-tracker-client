@@ -1,0 +1,53 @@
+h1, h4 {
+    font-family: "Poppins", Arial, Helvetica, sans-serif;
+    text-align: center;
+}
+
+.content {
+    width: 70%;
+    margin: auto;
+    padding: 30px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    border: 3px solid var(--accent-blue);
+    background-color: white;
+}
+
+.label {
+    color: var(--text-primary);
+    font-weight: bold;
+    font-family: "Poppins", Arial, Helvetica, sans-serif;
+    padding: 10px;
+    margin: 5px;
+    flex: 1;
+    color: var(--main-background)
+}
+
+.input {
+    background-color: #fff;
+    color: var(--secondary-background);
+    font-family: "Poppins", Arial, Helvetica, sans-serif;
+    margin: 10px;
+    padding: 5px;
+    flex: 2;
+}
+
+form {
+    display: flex;
+    flex-direction: column;
+}
+
+
+form div {
+    display: flex;
+}
+
+button {
+    margin-bottom: 15px;
+}
+
+button:hover {
+    background-color: var(--secondary-background);
+    color: var(--accent-blue);
+}

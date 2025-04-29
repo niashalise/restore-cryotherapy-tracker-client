@@ -3,6 +3,7 @@ import { month, date, year } from "../shared/variables";
 import styles from '../NewSession.module.css'
 import Modal from "../components/Modal"
 import CreateClient from "./CreateClient";
+import { useNavigate } from "react-router-dom"
 
 function NewSession() {
 
@@ -14,6 +15,8 @@ function NewSession() {
     endingTemp: "",
     date: `${month+1} ${date}, ${year}`,
   });
+
+  const navigate = useNavigate();
 
   const [isNewClientOpen, setIsNewClientOpen] = useState(false);
 
@@ -51,7 +54,9 @@ function NewSession() {
           </select>
         </div>
         <div>
-          <label htmlFor="name" classname="client">Client Name: </label>
+          <label htmlFor="name" classname="client">
+            Client Name:{" "}
+          </label>
           <input
             type="text"
             name="name"
@@ -96,7 +101,9 @@ function NewSession() {
       </form>
 
       <div className={styles.content}>
-        <button type="button">Add Client</button>
+        <button type="button" onClick={() => navigate("/create-client")}>
+          Add Client
+        </button>
       </div>
     </>
   );
