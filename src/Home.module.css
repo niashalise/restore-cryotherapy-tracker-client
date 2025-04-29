@@ -54,3 +54,8 @@
     font-family: "Poppins", Arial, Helvetica, sans-serif;
     margin: 5px;
 }
+
+.addNew {
+    color: var(--text-primary);
+    font-weight: bold;
+}

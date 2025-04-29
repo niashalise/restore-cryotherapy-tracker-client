@@ -7,6 +7,7 @@ import SignUp from './components/SignUp'
 import TodaysSession from './components/TodaysSession';
 import NewSession from './components/NewSession'
 import "./App.css"
+import CreateClient from './components/CreateClient';
 
 
 
@@ -21,6 +22,7 @@ function App() {
         <Route path="/signup" element={<SignUp />} />
         <Route path="/todays-session" element={<TodaysSession />} />
         <Route path="/new-session" element={<NewSession />} />
+        <Route path="/create-client" element={<CreateClient />} />
       </Routes>
     </div>
   );

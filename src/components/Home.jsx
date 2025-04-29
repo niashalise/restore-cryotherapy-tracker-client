@@ -41,7 +41,10 @@ function Home() {
                     <input type="date" name="calendar" id="calendar" className={styles.input}/>
                     <button type="button" className={styles.formBtn}>Go</button>
                 </Modal>
-        </div>
+            </div>
+            <div className="add">
+                <button type="button" className={styles.btn}onClick={() => navigate("/create-client")}>Add A New Client</button>
+            </div>
         </div>
     );
 }
