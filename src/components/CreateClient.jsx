@@ -20,7 +20,6 @@ function CreateClient () {
             gender: e.target.gender.value,
             dateOfBirth: e.target.dob.value
         })
-
     }
 
     return (

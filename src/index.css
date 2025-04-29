@@ -11,6 +11,17 @@
   text-rendering: optimizeLegibility;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
+
+    --main-background: #002145;
+    --secondary-background: #005476;
+    --accent-blue: #02aad3;
+    --secondary-accent: #015eb3;
+    --text-primary: #fff;
+}
+
+* {
+    box-sizing: border-box;
+    overflow-x: hidden;
 }
 
 a {
@@ -24,10 +35,8 @@ a:hover {
 
 body {
   margin: 0;
-  display: flex;
-  place-items: center;
-  min-width: 320px;
-  min-height: 100vh;
+  background-color: var(--main-background);
+  height: 100vh;
 }
 
 h1 {
@@ -65,4 +74,16 @@ button:focus-visible {
   button {
     background-color: #f9f9f9;
   }
+}
+
+@media screen and (min-width: 320px) and (max-width:768px) {
+    main button {
+        height: 75px;
+        width: 60%;
+        font-size: 1em;
+    }
+
+    .content div {
+        flex-direction: column;
+    }
 }

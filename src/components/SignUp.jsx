@@ -1,4 +1,5 @@
 import { useState } from "react";
+import styles from '../SignUp.module.css'
 
 function SignUp() {
     const [user, setUser] = useState({
@@ -26,19 +27,21 @@ function SignUp() {
 
     return (
         <div>
+            <h1>Sign Up</h1>
             <form onSubmit={handleSubmit}>
                 <div>
-                    <label htmlFor="storeName">Store Name: </label>
-                    <input id="storeName" name="storeName" type="text" placeholder="PA019" required />
+                    <label htmlFor="storeName" className={styles.label}>Store Name: </label>
+                    <input id="storeName" name="storeName" type="text" placeholder="PA019" required className={styles.input} />
                 </div>
                 <div>
-                    <label htmlFor="email">Email Address: </label>
-                    <input id="email" name="email" type="email" placeholder="frontdeskpa019@restore.com" required />
+                    <label htmlFor="email" className={styles.label}>Email Address: </label>
+                    <input id="email" name="email" type="email" placeholder="frontdeskpa019@restore.com" required className={styles.input} />
                 </div>
                 <div>
-                    <label htmlFor="password">Password: </label>
-                    <input id="password" name="password" type="password" required />
+                    <label htmlFor="password" className={styles.label}>Password: </label>
+                    <input id="password" name="password" type="password" required className={styles.input} />
                 </div>
+                <button type="submit">Submit</button>
 
             </form>
         </div>
