@@ -1,43 +1,62 @@
 import { useState } from "react";
 import { month, date, year } from "../shared/variables";
-import styles from '../NewSession.module.css'
-import Modal from "../components/Modal"
+import styles from "../NewSession.module.css";
+import Modal from "../components/Modal";
 import CreateClient from "./CreateClient";
-import { useNavigate } from "react-router-dom"
+import { useNavigate } from "react-router-dom";
 
 function NewSession() {
-
   const [session, setSession] = useState({
     machine: "",
-    client: "",
+    name: "",
+    phone: "",
     settings: "",
     startingTemp: "",
     endingTemp: "",
-    date: `${month+1} ${date}, ${year}`,
+    date: `${month + 1} ${date}, ${year}`,
   });
+
+  const [error, setError] = useState({
+    name: "",
+    phone: "",
+    startingTemp: "",
+  });
+
+  const handleInputChange = (e) => {
+    const { name, value } = e.target;
+    console.log(name, value);
+    if (parseFloat(value) < 75) {
+      setError((prevError) => ({
+        ...prevError,
+        [name]:
+          "Client's starting temperature is under the recommended starting temperature. Proceed with caution.",
+      }));
+    }
+  };
 
   const navigate = useNavigate();
 
-  const [isNewClientOpen, setIsNewClientOpen] = useState(false);
-
-  const handleAddNewToggle = () => {
-    setIsNewClientOpen((prevState) => !prevState)
-  }
+  const handleIsErrorToggle = () => {
+    setError({ startingTemp: "" });
+  };
 
   let todaysSessions = [];
 
   const handleSubmit = (e) => {
-    setSession(prevSession => ({
-        ...prevSession,
+    e.preventDefault();
+
+    setSession((prevSession) => ({
+      ...prevSession,
       machine: e.target.machine.value,
-      client: e.target.name.value,
+      name: e.target.name.value,
+      phone: e.target.phone.value,
       settings: e.target.settings.value,
-      startingTemp: e.target.starting.value,
-      endingTemp: e.target.ending.value,
+      startingTemp: e.target.startingTemp.value,
+      endingTemp: e.target.endingTemp.value,
     }));
   };
 
-  console.log(session);
+  const isOpen = Object.values(error).filter((e) => e != "").length;
 
   return (
     <>
@@ -54,14 +73,26 @@ function NewSession() {
           </select>
         </div>
         <div>
-          <label htmlFor="name" classname="client">
-            Client Name:{" "}
+          <label htmlFor="name" className="client">
+            Client Name:
           </label>
           <input
             type="text"
             name="name"
             id="name"
             placeholder="John Doe"
+            required
+          />
+        </div>
+        <div>
+          <label htmlFor="phone" className="client">
+            Phone Number:
+          </label>
+          <input
+            type="tel"
+            name="phone"
+            id="phone"
+            placeholder="1234567890"
             required
           />
         </div>
@@ -76,21 +107,22 @@ function NewSession() {
           />
         </div>
         <div>
-          <label htmlFor="starting">Starting Temperature: </label>
+          <label htmlFor="startingTemp">Starting Temperature: </label>
           <input
             type="text"
-            name="starting"
-            id="starting"
+            name="startingTemp"
+            id="startingTemp"
             placeholder="85.5"
             required
+            onBlur={handleInputChange}
           />
         </div>
         <div>
-          <label htmlFor="ending">Ending Temperature: </label>
+          <label htmlFor="endingTemp">Ending Temperature: </label>
           <input
             type="text"
-            name="ending"
-            id="ending"
+            name="endingTemp"
+            id="endingTemp"
             placeholder="52.0"
             required
           />
@@ -99,6 +131,14 @@ function NewSession() {
           Submit
         </button>
       </form>
+      <Modal
+        isOpen={isOpen}
+        handleToggle={handleIsErrorToggle}
+      >
+        <p>
+          <strong>Warning:</strong> <span>{error.startingTemp}</span>
+        </p>
+      </Modal>
 
       <div className={styles.content}>
         <button type="button" onClick={() => navigate("/create-client")}>
