@@ -40,8 +40,6 @@ function NewSession() {
     setError({ startingTemp: "" });
   };
 
-  let todaysSessions = [];
-
   const handleSubmit = (e) => {
     e.preventDefault();
 

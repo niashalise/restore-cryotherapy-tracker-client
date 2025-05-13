@@ -8,6 +8,7 @@ import TodaysSession from './components/TodaysSession';
 import NewSession from './components/NewSession'
 import "./App.css"
 import CreateClient from './components/CreateClient';
+import SearchForClient from './components/SearchForClient';
 
 
 
@@ -23,6 +24,7 @@ function App() {
         <Route path="/todays-session" element={<TodaysSession />} />
         <Route path="/new-session" element={<NewSession />} />
         <Route path="/create-client" element={<CreateClient />} />
+        <Route path="/client-sessions" element={<SearchForClient />} />
       </Routes>
     </div>
   );

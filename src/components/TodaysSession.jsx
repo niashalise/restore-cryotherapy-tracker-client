@@ -1,4 +1,4 @@
-import '../TodaysSession.css'
+import styles from '../Tables.module.css'
 
 function TodaysSession() {
 
