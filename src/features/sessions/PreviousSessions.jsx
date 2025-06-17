@@ -1,10 +1,9 @@
-import styles from "../styles/Tables.module.css";
-import { useParams } from "react-router-dom";
 import { useEffect, useState } from "react";
+import { useParams } from "react-router-dom";
 
-function SearchForClient() {
-  const { phone } = useParams();
-  const [inputPhone, setInputPhone] = useState(phone);
+function PreviousSessions() {
+  const { date } = useParams();
+  const [inputDate, setInputDate] = useState(date);
   const [sessions, setSessions] = useState([]);
 
   useEffect(() => {
@@ -13,36 +12,31 @@ function SearchForClient() {
 
       try {
         const response = await fetch(
-          `${API_BASE_URL}/api/sessions/client-sessions?phone=${inputPhone}`,
+          `${API_BASE_URL}/api/sessions/previous-sessions?date=${inputDate}`,
           {
             method: "GET",
             headers: { "Content-Type": "application/json" },
           }
         );
-
         const result = await response.json();
 
         if (response.ok) {
           setSessions(result.data.sessions);
         }
-      } catch (error) {}
+      } catch (error) {
+        console.log(error);
+      }
     };
     getSessions();
   }, []);
 
-  const returnDate = (date) => {
-    const dateString = new Date(date).toDateString();
-    return dateString;
-  };
-
   return (
     <div>
-      <h1>Previous Cryotherapy Sessions</h1>
-      <h3>For {sessions[0] ? sessions[0].name : "Guest"}</h3>
+      <h1>Cryotherapy Sessions for {date}</h1>
       <table>
         <thead>
           <tr>
-            <th>Date</th>
+            <th>Name</th>
             <th>Settings</th>
             <th>Starting Temp</th>
             <th>Ending Temp</th>
@@ -51,7 +45,7 @@ function SearchForClient() {
         <tbody>
           {sessions.map((session) => (
             <tr key={session._id}>
-              <td>{returnDate(session.date)}</td>
+              <td>{session.name}</td>
               <td>{session.settings}</td>
               <td>{session.startingTemp}</td>
               <td>{session.endingTemp}</td>
@@ -63,4 +57,4 @@ function SearchForClient() {
   );
 }
 
-export default SearchForClient;
+export default PreviousSessions;
