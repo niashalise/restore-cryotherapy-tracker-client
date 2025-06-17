@@ -1,12 +1,12 @@
 import React from "react";
-import '../Modal.css'
+import '../styles/Modal.css'
 
-function Modal({isOpen, handleToggle, children}) {
+function Modal({isOpen, handleToggle, children, className}) {
     if (!isOpen) return null;
 
     return (
         <div className="modal-container">
-            <div className="modal-content">
+            <div className={`modal-content ${className ? className : ""}`}>
                 {children}
                 <button type="button" onClick={handleToggle}>Close</button>
             </div>

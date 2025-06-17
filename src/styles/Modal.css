@@ -27,3 +27,19 @@ button {
   font-weight: bold;
   font-family: "Poppins", Arial, Helvetica, sans-serif;
 }
+
+.createdModal {
+  display: flex;
+  flex-direction: column;
+}
+
+.searchModal {
+  font-family: "Poppins", Arial, Helvetica, sans-serif;
+  color: #fff;
+  flex-direction: column;
+  align-content: center;
+}
+
+#searchLabel {
+  color: white;
+}
