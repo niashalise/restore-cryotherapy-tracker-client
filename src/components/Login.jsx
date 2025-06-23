@@ -41,7 +41,7 @@ function Login() {
 
   return (
     <>
-      <h1>Login</h1>
+      <h1 className={styles.header}>Login</h1>
       <form className="content" onSubmit={handleOnSubmit}>
         <div>
           <label htmlFor="email" className={styles.label}>
