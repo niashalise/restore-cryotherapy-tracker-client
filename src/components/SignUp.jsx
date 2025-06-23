@@ -43,7 +43,7 @@ function SignUp() {
 
   return (
     <div>
-      <h1>Sign Up</h1>
+      <h1 className={styles.header}>Sign Up</h1>
       <form onSubmit={handleSubmit}>
         <div>
           <label htmlFor="storeName" className={styles.label}>

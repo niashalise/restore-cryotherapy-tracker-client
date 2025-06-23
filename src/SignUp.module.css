@@ -16,25 +16,7 @@
   flex: 2;
 }
 
-form {
-  display: flex;
-  flex-direction: column;
-}
-
-form div {
-  display: flex;
-}
-
-button {
-  margin-bottom: 15px;
-}
-
-button:hover {
-  background-color: var(--main-background);
-  color: var(--accent-blue);
-}
-
-h1 {
+.header {
   font-family: "Poppins", Arial, Helvetica, sans-serif;
   font-size: 2em;
   overflow-y: hidden;

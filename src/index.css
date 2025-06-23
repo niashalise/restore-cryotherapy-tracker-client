@@ -63,7 +63,9 @@ button:focus-visible {
 }
 
 h1,
-h3 {
+h2
+h3, 
+h4 {
   font-family: "Poppins", Arial, Helvetica, sans-serif;
   text-align: center;
 }
@@ -94,6 +96,29 @@ table td {
   text-align: center;
 }
 
+form {
+  display: flex;
+  flex-direction: column;
+}
+
+form div {
+  display: flex;
+}
+
+button {
+  margin-bottom: 15px;
+}
+
+button:hover {
+  background-color: var(--secondary-background);
+  color: var(--accent-blue);
+}
+
+ul {
+  padding: 0;
+  display: flex;
+  flex-direction: column;
+}
 
 @media (prefers-color-scheme: light) {
   :root {
