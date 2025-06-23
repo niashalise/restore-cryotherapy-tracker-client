@@ -1,7 +1,7 @@
 import Modal from "./Modal";
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
-import styles from "../styles/Home.module.css";
+import styles from "../Home.module.css";
 import { year, month, date } from "../shared/variables";
 
 function Home() {

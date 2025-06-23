@@ -1,5 +1,5 @@
 import React from "react";
-import '../styles/Modal.css'
+import '../Modal.css'
 
 function Modal({isOpen, handleToggle, children, className}) {
     if (!isOpen) return null;
