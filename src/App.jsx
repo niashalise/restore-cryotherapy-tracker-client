@@ -5,7 +5,6 @@ import { Routes, Route } from "react-router-dom";
 import Login from "./components/Login";
 import SignUp from "./components/SignUp";
 import NewSession from "./features/sessions/NewSession";
-import "./App.css";
 import CreateClient from "./components/CreateClient";
 import SearchForClient from "./components/SearchForClient";
 import PreviousSessions from "./features/sessions/PreviousSessions";

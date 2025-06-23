@@ -12,16 +12,16 @@
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
 
-    --main-background: #002145;
-    --secondary-background: #005476;
-    --accent-blue: #02aad3;
-    --secondary-accent: #015eb3;
-    --text-primary: #fff;
+  --main-background: #002145;
+  --secondary-background: #005476;
+  --accent-blue: #02aad3;
+  --secondary-accent: #015eb3;
+  --text-primary: #fff;
 }
 
 * {
-    box-sizing: border-box;
-    overflow-x: hidden;
+  box-sizing: border-box;
+  overflow-x: hidden;
 }
 
 a {
@@ -75,14 +75,14 @@ button:focus-visible {
   }
 }
 
-@media screen and (min-width: 320px) and (max-width:768px) {
-    main button {
-        height: 75px;
-        width: 60%;
-        font-size: 1em;
-    }
+@media screen and (min-width: 320px) and (max-width: 768px) {
+  main button {
+    height: 75px;
+    width: 60%;
+    font-size: 1em;
+  }
 
-    .content div {
-        flex-direction: column;
-    }
+  .content div {
+    flex-direction: column;
+  }
 }
