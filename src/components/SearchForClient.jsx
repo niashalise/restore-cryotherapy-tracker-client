@@ -1,4 +1,3 @@
-import styles from "../styles/Tables.module.css"
 import { useParams } from "react-router-dom";
 import { useEffect, useState } from "react";
 

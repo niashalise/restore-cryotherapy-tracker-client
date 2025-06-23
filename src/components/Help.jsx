@@ -1,4 +1,4 @@
-import styles from "../styles/CreateClient.module.css";
+import styles from "../CreateClient.module.css";
 import { useState } from "react";
 import Modal from "./Modal";
 

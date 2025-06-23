@@ -1,6 +1,6 @@
 import { useState } from "react";
 import { month, date, year } from "../../shared/variables";
-import styles from "../../styles/NewSession.module.css";
+import styles from "../..//NewSession.module.css";
 import Modal from "../../components/Modal";
 import { useNavigate } from "react-router-dom";
 

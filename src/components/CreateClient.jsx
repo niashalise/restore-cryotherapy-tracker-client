@@ -1,5 +1,5 @@
 import { useState } from "react";
-import styles from "../styles/CreateClient.module.css";
+import styles from "../CreateClient.module.css";
 import Modal from "./Modal";
 
 function CreateClient() {

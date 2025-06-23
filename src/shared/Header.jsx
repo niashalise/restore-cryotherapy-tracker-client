@@ -1,5 +1,5 @@
 import { useState } from "react";
-import "../styles/Header.css";
+import "../Header.css";
 import SignUp from "../components/SignUp";
 import Modal from "../components/Modal";
 import Login from "../components/Login";

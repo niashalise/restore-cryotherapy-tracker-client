@@ -62,6 +62,39 @@ button:focus-visible {
   outline: 4px auto -webkit-focus-ring-color;
 }
 
+h1,
+h3 {
+  font-family: "Poppins", Arial, Helvetica, sans-serif;
+  text-align: center;
+}
+
+table {
+  background-color: #fff;
+  border: var(--accent-blue) 3px solid;
+  width: 70%;
+  border-collapse: collapse;
+  margin: auto;
+  font-family: "Poppins", sans-serif;
+  color: black;
+}
+
+table tr:nth-child(even) {
+  background-color: lightgray;
+}
+
+table thead th {
+  border: var(--accent-blue) 3px solid;
+}
+
+table th td {
+  border-collapse: collapse;
+}
+
+table td {
+  text-align: center;
+}
+
+
 @media (prefers-color-scheme: light) {
   :root {
     color: #213547;
