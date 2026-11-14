@@ -1,6 +1,7 @@
 import { useState } from "react";
 import styles from "../Login.module.css";
 import { useNavigate } from "react-router-dom";
+import { setToken, setUser } from "../shared/tokenStorage";
 
 function Login() {
   const [loginFormData, setLoginFormData] = useState({
@@ -30,7 +31,8 @@ function Login() {
       });
       const result = await response.json();
       if (response.ok) {
-        localStorage.setItem("user", JSON.stringify(result.data.user));
+        setUser(result.data.user);
+        setToken(result.data.token);
         navigate("/");
         window.location.reload();
       }

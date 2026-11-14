@@ -4,6 +4,7 @@ import SignUp from "../components/SignUp";
 import Modal from "../components/Modal";
 import Login from "../components/Login";
 import { useNavigate } from "react-router-dom";
+import { clearSession } from "./tokenStorage";
 
 function Header({isAuthenticated}) {
   const [isSignUpOpen, setIsSignUpOpen] = useState(false);
@@ -20,27 +21,11 @@ function Header({isAuthenticated}) {
 
   const navigate = useNavigate();
 
-  // call the backend for logout route
-  // remove user from local storage
-  const handleLogout = async () => {
-    const API_BASE_URL = import.meta.env.VITE_API_BASE_URL;
-
-    try {
-      const response = await fetch(`${API_BASE_URL}/auth/logout`, {
-        method: "GET",
-        headers: { "Content-Type": "application/json" },
-      });
-      const result = await response.json();
-      
-      if (response.ok) {
-        localStorage.removeItem("user");
-        navigate("/");
-        window.location.reload();
-      }
-
-    } catch (error) {
-      console.log(error);
-    }
+  // clear stored token and user; return to homepage
+  const handleLogout = () => {
+    clearSession();
+    navigate("/");
+    window.location.reload();
   };
 
   return (

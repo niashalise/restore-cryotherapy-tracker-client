@@ -10,6 +10,7 @@ import SearchForClient from "./components/SearchForClient";
 import PreviousSessions from "./features/sessions/PreviousSessions";
 import Help from "./components/Help";
 import ProtectedRoute from "./components/ProtectedRoute";
+import { getToken, clearSession, getUser } from "./shared/tokenStorage";
 
 function App() {
   const [user, setUser] = useState(null);
@@ -17,11 +18,15 @@ function App() {
 
   useEffect(() => {
     setLoading(true);
-    const storedUser = localStorage.getItem("user");
+    const storedUser = getUser();
+    const token = getToken();
 
-    if (storedUser) {
-      setUser(JSON.parse(storedUser));
+    if (storedUser && token) {
+      setUser(storedUser);
+    } else {
+      clearSession();
     }
+
     setLoading(false);
   }, []);
 
