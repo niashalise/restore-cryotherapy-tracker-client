@@ -1,18 +1,21 @@
-import { useState } from "react";
+import { Fragment, useState } from "react";
 import { month, date, year } from "../../shared/variables";
 import styles from "../..//NewSession.module.css";
 import Modal from "../../components/Modal";
 import { useNavigate } from "react-router-dom";
+import { apiFetch } from "../../shared/api";
 
 function NewSession() {
   const [session, setSession] = useState({
-    machine: "",
-    name: "",
-    phone: "",
+    clientId: "",
+    machineType: "electric",
     settings: "",
     startingTemp: "",
     endingTemp: "",
-    date: `${month + 1} ${date}, ${year}`,
+  });
+  const [selectedClient, setSelectedClient] = useState({
+    name: "",
+    phone: ""
   });
   const [isSearchModalOpen, setIsSearchModalOpen] = useState(false);
   const [error, setError] = useState({
@@ -41,16 +44,10 @@ function NewSession() {
 
   const handleSearchClient = async (e) => {
     const { value } = e.target;
-    const API_BASE_URL = import.meta.env.VITE_API_BASE_URL;
+    
     try {
       if (value.length === 10) {
-        const response = await fetch(
-          `${API_BASE_URL}/api/sessions/search-client?phone=${value}`,
-          {
-            method: "GET",
-            headers: { "Content-Type": "application/json" },
-          }
-        );
+        const response = await apiFetch(`/api/sessions/search-client?phone=${value}`);
         const result = await response.json();
 
         if (response.ok) {
@@ -76,18 +73,23 @@ function NewSession() {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-    const API_BASE_URL = import.meta.env.VITE_API_BASE_URL;
 
+    const requestBody = {
+      ...session,
+      date: new Date().toISOString()
+    };
+    
     try {
-      const response = await fetch(`${API_BASE_URL}/api/sessions/create/new`, {
+      const response = await apiFetch(`/api/sessions/create/new`, {
         method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify(session),
+        body: JSON.stringify(requestBody)
       });
       const result = await response.json();
 
       if (response.ok) {
         navigate(`/previous-sessions/${today}`);
+      } else {
+        console.log("Result: ", result);
       }
     } catch (error) {
       console.log(error);
@@ -104,13 +106,13 @@ function NewSession() {
       </h2>
       <form className={styles.content} onSubmit={handleSubmit}>
         <div>
-          <label htmlFor="machine">Machine Type: </label>
+          <label htmlFor="machineType">Machine Type: </label>
           <select
-            id="machine"
-            name="machine"
+            id="machineType"
+            name="machineType"
             required
             onChange={handleFormInputs}
-            value={session.machine}
+            value={session.machineType}
           >
             <option value="electric">Electric</option>
             <option value="nitro">Nitrogen</option>
@@ -125,9 +127,8 @@ function NewSession() {
             name="name"
             id="name"
             placeholder="John Doe"
-            required
-            onChange={handleFormInputs}
-            value={session.name}
+            readOnly
+            value={selectedClient.name}
           />
         </div>
         <div>
@@ -139,9 +140,8 @@ function NewSession() {
             name="phone"
             id="phone"
             placeholder="1234567890"
-            required
-            onChange={handleFormInputs}
-            value={session.phone}
+            readOnly
+            value={selectedClient.phone}
           />
         </div>
         <div>
@@ -181,9 +181,14 @@ function NewSession() {
             value={session.endingTemp}
           />
         </div>
-        <button className="submit-btn" type="submit">
+        <button
+          className="submit-btn"
+          type="submit"
+          disabled={!session.clientId}
+        >
           Submit
         </button>
+        {!session.clientId && <p>Search for a client to begin.</p>}
       </form>
       <Modal isOpen={isOpen} handleToggle={handleIsErrorToggle}>
         <p>
@@ -203,19 +208,19 @@ function NewSession() {
           handleToggle={handleSearchToggle}
           className="searchModal"
         >
-          <label htmlFor="phone" id="searchLabel">
+          <label htmlFor="searchPhone" id="searchLabel">
             Phone Number:{" "}
           </label>
           <input
             type="text"
             name="phone"
-            id="phone"
+            id="searchPhone"
             onChange={handleSearchClient}
           />
           <ul>
             {returnedUsers.map((user) => (
-              <>
-                <li key={user._id}>
+              <Fragment key={user._id}>
+                <li>
                   {user.firstName} {user.lastName}
                 </li>
                 <button
@@ -224,16 +229,19 @@ function NewSession() {
                     setSession((prevSession) => {
                       return {
                         ...prevSession,
-                        name: `${user.firstName} ${user.lastName}`,
-                        phone: user.phone,
+                        clientId: user._id,
                       };
+                    });
+                    setSelectedClient({
+                      name: `${user.firstName} ${user.lastName}`,
+                      phone: user.phone,
                     });
                     setIsSearchModalOpen(false);
                   }}
                 >
                   Select
                 </button>
-              </>
+              </Fragment>
             ))}
           </ul>
         </Modal>

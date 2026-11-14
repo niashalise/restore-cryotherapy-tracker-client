@@ -1,6 +1,7 @@
 import { useState } from "react";
 import styles from "../SignUp.module.css";
 import { useNavigate } from "react-router-dom";
+import { setToken, setUser } from "../shared/tokenStorage";
 
 function SignUp() {
   const navigate = useNavigate();
@@ -32,7 +33,8 @@ function SignUp() {
       const result = await response.json();
 
       if (response.ok) {
-        localStorage.setItem("user", JSON.stringify(result.data.user));
+        setUser(result.data.user);
+        setToken(result.data.token);
         navigate("/");
         window.location.reload();
       }

@@ -7,7 +7,6 @@ function Help() {
   const [newInquiry, setNewInquiry] = useState({
     inquiry: "",
     name: "",
-    studio: "",
     message: "",
   });
 
@@ -76,21 +75,6 @@ function Help() {
             placeholder="(Optional)"
             className={styles.input}
             value={newInquiry.name}
-            onChange={handleInputChange}
-          />
-        </div>
-        <div>
-          <label htmlFor="studio" className={styles.label}>
-            Studio:
-          </label>
-          <input
-            type="text"
-            id="studio"
-            name="studio"
-            required
-            placeholder="PA019"
-            className={styles.input}
-            value={newInquiry.studio}
             onChange={handleInputChange}
           />
         </div>
