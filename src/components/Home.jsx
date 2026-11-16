@@ -3,6 +3,7 @@ import { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import styles from "../Home.module.css";
 import { year, month, date } from "../shared/variables";
+import { cleanPhoneInput } from "../shared/phone";
 
 function Home() {
   const [isCalendarOpen, setIsCalendarOpen] = useState(false);
@@ -22,14 +23,17 @@ function Home() {
   const navigate = useNavigate();
 
   const handlePhoneInput = (e) => {
-    setPhone(e.target.value);
+    const cleanValue = cleanPhoneInput(e.target.value);
+    setPhone(cleanValue);
   };
 
   const retrieveDate = () => {
-    // console.log(selectedDate);
+    if (!selectedDate) {
+      return;
+    };
+    
     navigate(`/previous-sessions/${selectedDate}`);
   };
-  //
 
   return (
     <div className={styles.container}>
@@ -64,7 +68,8 @@ function Home() {
             Search by Phone:
           </label>
           <input
-            type="text"
+            type="tel"
+            inputMode="numeric"
             id="phone"
             name="phone"
             className={styles.search}
@@ -74,6 +79,7 @@ function Home() {
           <button
             type="button"
             className={styles.formBtn}
+            disabled={phone.length !== 10}
             onClick={() => {
               navigate(`/client-sessions/${phone}`);
             }}
@@ -107,6 +113,7 @@ function Home() {
             type="button"
             className={styles.formBtn}
             onClick={retrieveDate}
+            disabled={!selectedDate}
           >
             Go
           </button>

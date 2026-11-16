@@ -47,9 +47,9 @@ function App() {
             path="/previous-sessions/:date"
             element={<PreviousSessions />}
           />
+          <Route path="/create-client" element={<CreateClient />} />
+          <Route path="/client-sessions/:phone" element={<SearchForClient />} />
         </Route>
-        <Route path="/create-client" element={<CreateClient />} />
-        <Route path="/client-sessions/:phone" element={<SearchForClient />} />
         <Route path="/help" element={<Help />} />
       </Routes>
     </div>

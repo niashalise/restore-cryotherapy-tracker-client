@@ -4,6 +4,7 @@ import styles from "../..//NewSession.module.css";
 import Modal from "../../components/Modal";
 import { useNavigate } from "react-router-dom";
 import { apiFetch } from "../../shared/api";
+import { cleanPhoneInput } from "../../shared/phone";
 
 function NewSession() {
   const [session, setSession] = useState({
@@ -44,15 +45,18 @@ function NewSession() {
 
   const handleSearchClient = async (e) => {
     const { value } = e.target;
-    
+    const cleanValue = cleanPhoneInput(value);
+
     try {
-      if (value.length === 10) {
-        const response = await apiFetch(`/api/sessions/search-client?phone=${value}`);
+      if (cleanValue.length === 10) {
+        const response = await apiFetch(`/api/sessions/search-client?phone=${cleanValue}`);
         const result = await response.json();
 
         if (response.ok) {
           setReturnedUsers(result.data.foundClient);
         }
+      } else {
+        setReturnedUsers([]);
       }
     } catch (error) {
       console.log(error);
