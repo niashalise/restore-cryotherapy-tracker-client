@@ -1,6 +1,9 @@
 import { useState } from "react";
 import styles from "../CreateClient.module.css";
 import Modal from "./Modal";
+import { apiFetch } from "../shared/api";
+import { useNavigate } from "react-router-dom";
+import { cleanPhoneInput } from "../shared/phone";
 
 function CreateClient() {
   const [isSuccessDialogOpen, setIsSuccessDialogOpen] = useState(false);
@@ -12,36 +15,46 @@ function CreateClient() {
     gender: "",
     dob: "",
   });
+  const navigate = useNavigate();
 
-  const handleSuccessDialogToggle = () => {
-    setIsSuccessDialogOpen((prevState) => !prevState);
+  const handleModalClose = () => {
+    setIsSuccessDialogOpen(false);
+    navigate("/new-session");
   };
 
   const handleInputChange = (e) => {
     const { name, value } = e.target;
 
+    const cleanValue = name === "phone" ? cleanPhoneInput(value) : value;
+
     setNewClient((prevClient) => ({
       ...prevClient,
-      [name]: value,
+      [name]: cleanValue,
     }));
   };
 
   const handleCreateClient = async (e) => {
     e.preventDefault();
-    const API_BASE_URL = import.meta.env.VITE_API_BASE_URL;
+
     try {
-      const response = await fetch(
-        `${API_BASE_URL}/api/sessions/create-client`,
-        {
-          method: "POST",
-          headers: { "Content-Type": "application/json" },
-          body: JSON.stringify(newClient),
-        }
-      );
+      const response = await apiFetch("/api/sessions/create-client", {
+        method: "POST",
+        body: JSON.stringify(newClient),
+      });
       const result = await response.json();
 
       if (response.ok) {
         setIsSuccessDialogOpen(true);
+        setNewClient({
+          firstName: "",
+          lastName: "",
+          email: "",
+          phone: "",
+          gender: "",
+          dob: "",
+        });
+      } else {
+        console.log("Result: ", result);
       }
     } catch (error) {
       console.log(error);
@@ -111,6 +124,8 @@ function CreateClient() {
             type="tel"
             required
             placeholder="1234567890"
+            title="Enter 10 digits, no spaces or dashes"
+            pattern="[0-9]{10}"
             value={newClient.phone}
             className={styles.input}
             onChange={handleInputChange}
@@ -151,7 +166,7 @@ function CreateClient() {
         <button type="submit">Submit</button>
         <Modal
           isOpen={isSuccessDialogOpen}
-          handleToggle={handleSuccessDialogToggle}
+          handleToggle={handleModalClose}
           className="createdModal"
         >
           Client created!
